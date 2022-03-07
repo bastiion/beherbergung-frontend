@@ -69,10 +69,6 @@ const uischema: (t: TranslationFunction ) => any = t => ({
     },
     {
       "type": "Control",
-      "scope": "#/properties/street"
-    },
-    {
-      "type": "Control",
       "scope": "#/properties/languages"
     },
     {
