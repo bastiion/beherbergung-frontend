@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "telephoneNumber": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "emailAddress": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "street": {
+      "type": "string"
+    },
+    "streetNumber": {
+      "type": "string",
+      "maxLength": 6
+    },
+    "postalCode": {
+      "type": "string",
+      "maxLength": 7
+    },
+    "availableBeds": {
+      "type": "number",
+      "minimum": 1
+    },
+    "earliestAvailability": {
+      "type": "string",
+      "format": "date"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "deu",
+          "eng",
+          "rus",
+          "ukr",
+          "spa",
+          "fra"
+        ]
+      }
+    },
+    "hasPets": {
+      "type": "boolean"
+    },
+    "petsAllowed": {
+      "type": "boolean"
+    },
+    "accessibilityGiven": {
+      "type": "boolean"
+    },
+    "maximumLengthOfStay": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "name",
+    "city",
+    "street",
+    "emailAddress",
+    "telephoneNumber",
+    "postalCode",
+    "streetNumber",
+    "availableBeds",
+    "earliestAvailability",
+    "maximumLengthOfStay"
+  ]
+}
