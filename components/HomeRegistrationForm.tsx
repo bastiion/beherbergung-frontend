@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { JsonForms } from '@jsonforms/react';
 import schema from '../schema/homeRegistartionSchema.json';
+import uischema from '../uischema/homeRegistrationUISchema'
 import {
   materialCells,
   materialRenderers,
@@ -20,6 +21,7 @@ const HomeRegistrationForm = () => {
   return (
     <JsonForms
       schema={schema}
+      uischema={uischema}
       data={data}
       renderers={renderers}
       cells={materialCells}
