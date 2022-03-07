@@ -1,20 +1,26 @@
-const uischema = {
+
+type TranslationFunction = (text: string) => string
+
+const uischema: (t: TranslationFunction ) => any = t => ({
   "type": "VerticalLayout",
   "elements": [
     {
       "type": "Control",
       "scope": "#/properties/name",
+      "label": t("name")
     },
     {
       "type": "HorizontalLayout",
       "elements": [
         {
           "type": "Control",
-          "scope": "#/properties/street"
+          "scope": "#/properties/street",
+          "label": t("street")
         },
         {
           "type": "Control",
-          "scope": "#/properties/streetNumber"
+          "scope": "#/properties/streetNumber",
+          "label": t("streetNumber")
         }
       ]
     },
@@ -78,6 +84,6 @@ const uischema = {
       "scope": "#/properties/petsAllowed"
     }
   ]
-}
+})
 
 export default uischema
