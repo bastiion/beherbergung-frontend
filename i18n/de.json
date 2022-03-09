@@ -1,6 +1,18 @@
 {
-  "name": "Name",
-  "street": "Straße",
-  "streetNumber": "Hausnummer",
-  "city": "Stadt"
+  "name.label": "Name",
+  "street.label": "Straße",
+  "streetNumber.label": "Hausnummer",
+  "city.label": "Stadt",
+  "is a required property": "Pflichtfeld",
+  "postalCode.label": "Postleitzahl",
+  "emailAddress.label": "EMail-Adresse",
+  "telephoneNumber.label": "Telefonnummer",
+  "telephoneNumber.description": "inkl. Länder (z.B. +49)",
+  "earliestAvailability.label": "frühste Verfügbarkeit",
+  "maximumLengthOfStay.label": "maximale Aufenthaltsdauer in Tagen",
+  "availableBeds.label": "Verfügbare Betten",
+  "hasPets.label": "Haustiere vorhanden",
+  "petsAllowed.label": "Haustiere erlaubt",
+  "accessibilityGiven.label": "Die Wohnung ist barrierefrei erreichbar",
+  "languages.label": "Sprachen"
 }

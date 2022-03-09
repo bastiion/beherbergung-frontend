@@ -1,6 +1,13 @@
 {
-  "name": "name",
-  "street": "street",
-  "streetNumber": "street number",
-  "city": "city"
+  "name.label": "name",
+  "street.label": "street",
+  "streetNumber.label": "street number",
+  "city.label": "city",
+  "is a required property": "obligatory",
+  "telephoneNumber.description": "including country dial out (i.e. +49)",
+  "maximumLengthOfStay.label": "maximum length of stay",
+  "accessibilityGiven.label": "Apartment is accessible",
+  "languages.label": "languages spoken",
+  "deu": "german",
+  "eng": "english"
 }
