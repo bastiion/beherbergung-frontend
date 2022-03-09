@@ -10,15 +10,21 @@ import {useTranslation} from "react-i18next";
 import {
   createAjv,
   JsonFormsI18nState,
+  rankWith,
+  scopeEndIs
 } from "@jsonforms/core";
+import CustomArrayControlRenderer from "./controls/CustomArrayControlRenderer";
 
 
 const initialData = {
 };
 
+const languageControlTester = rankWith(4, scopeEndIs('languages'))
+
 const renderers = [
   ...materialRenderers,
-  //register custom renderers
+  { tester: languageControlTester,
+    renderer:  CustomArrayControlRenderer }
 ];
 
 const HomeRegistrationForm = () => {
