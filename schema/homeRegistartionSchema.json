@@ -27,7 +27,7 @@
       "maxLength": 7
     },
     "availableBeds": {
-      "type": "number",
+      "type": "integer",
       "minimum": 1
     },
     "earliestAvailability": {
