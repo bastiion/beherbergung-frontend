@@ -11,7 +11,7 @@ import {
   createAjv,
   JsonFormsI18nState,
   rankWith,
-  scopeEndIs
+  scopeEndIs, Translator
 } from "@jsonforms/core";
 import CustomArrayControlRenderer from "./controls/CustomArrayControlRenderer";
 
@@ -32,11 +32,13 @@ const HomeRegistrationForm = () => {
   const { t, i18n: { language, exists } } = useTranslation()
   const [ajv] = useState(createAjv({ strictRequired: false, allErrors: false }));
 
+  const translator: Translator = (key, defaultMessage) => {
+    return ( exists(key) ? t(key) : (defaultMessage && exists(defaultMessage) ? t(defaultMessage) :  defaultMessage ) || '' )
+  }
+
   const i18n: JsonFormsI18nState = {
     locale: language,
-    translate: (key, defaultMessage) => {
-      return  exists(key) ? t(key) : (defaultMessage && exists(defaultMessage) ? t(defaultMessage) :  defaultMessage )
-    }
+    translate: translator
   }
 
   return (

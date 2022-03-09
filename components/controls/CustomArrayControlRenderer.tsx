@@ -32,6 +32,9 @@ type ArrayDataProp = {
 type CustomArrayLayoutProps = ArrayLayoutProps & ArrayDataProp
 
 const CustomArrayControlRenderer = ({removeItems, addItem, visible, schema, arrayData, path, label }: CustomArrayLayoutProps) => {
+  const values: string[] =  arrayData || []
+  const  { t } = useTranslation()
+
   const options = schema.oneOf?.map(({const: key, title}) => ({
     key: key as string,
     value: key,
@@ -40,11 +43,9 @@ const CustomArrayControlRenderer = ({removeItems, addItem, visible, schema, arra
 
   const getLabel = (_key:string) =>
    options?.find(({key}) => key === _key)?.label || _key
-  const values: string[] =  arrayData || []
 
   const handleChange = useCallback(
-    (event: SelectChangeEvent) => {
-      const targetValues = event.target.value
+    ({ target: { value: targetValues } }: SelectChangeEvent<string[]>) => {
       const diff = _.xor(values, targetValues)
       if(targetValues.length > values.length) {
         diff.forEach(item => addItem(path, item)())
@@ -52,15 +53,8 @@ const CustomArrayControlRenderer = ({removeItems, addItem, visible, schema, arra
         diff.forEach(item => {
           const i = values.indexOf(item)
           i > -1 && removeItems && removeItems(path, [i])()
-        })
-      }
-
-    },
-    [addItem, removeItems, values],
-  );
-
-  const  { t } = useTranslation()
-
+        })}},
+    [addItem, removeItems, values]);
 
   return <Hidden xsUp={!visible}>
     <FormControl fullWidth={true}>
@@ -77,26 +71,30 @@ const CustomArrayControlRenderer = ({removeItems, addItem, visible, schema, arra
         {options?.map(({key, value, label}) => (
           <MenuItem key={key} value={value}>
             <Checkbox checked={values.indexOf(value) > -1} />
-            <ListItemText primary={t(label)} />
+            <ListItemText primary={label ? t(label) : t(key)} />
           </MenuItem>
         ))}
       </Select>}
     </FormControl>
   </Hidden>
 }
+
 const withContextToArrayLayoutProps =
-  (Component: ComponentType<CustomArrayLayoutProps>): ComponentType<OwnPropsOfControl> =>
-    ({ ctx, props }: JsonFormsStateContext & ArrayLayoutProps) => {
+  (Component: ComponentType<CustomArrayLayoutProps>): ComponentType<CustomArrayLayoutProps> => {
+    const component = ({ctx, props}: JsonFormsStateContext & ArrayLayoutProps) => {
       const arrayLayoutProps = ctxToArrayLayoutProps(ctx, props);
       const rootData = getData({jsonforms: ctx});
       const path = composeWithUi(props.uischema, props.path);
       const data = Resolve.data(rootData, path);
       const dispatchProps = ctxDispatchToArrayControlProps(ctx.dispatch);
-      return (<Component {...arrayLayoutProps} {...dispatchProps} arrayData={data} />);
+      return (<Component {...arrayLayoutProps} {...dispatchProps} arrayData={data}/>);
     };
+    return component
+  };
 
 export const withJsonFormsArrayLayoutProps =
   (Component: ComponentType<CustomArrayLayoutProps>, memoize = true): ComponentType<OwnPropsOfControl> =>
-    withJsonFormsContext(withContextToArrayLayoutProps(memoize ? React.memo(Component) : Component));
+    withJsonFormsContext(
+      withContextToArrayLayoutProps(memoize ? React.memo(Component) : Component));
 
 export default withJsonFormsArrayLayoutProps(CustomArrayControlRenderer)
