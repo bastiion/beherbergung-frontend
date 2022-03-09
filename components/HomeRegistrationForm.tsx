@@ -7,7 +7,10 @@ import {
   materialRenderers,
 } from '@jsonforms/material-renderers';
 import {useTranslation} from "react-i18next";
-import {JsonFormsI18nState} from "@jsonforms/core";
+import {
+  createAjv,
+  JsonFormsI18nState,
+} from "@jsonforms/core";
 
 
 const initialData = {
@@ -21,6 +24,7 @@ const renderers = [
 const HomeRegistrationForm = () => {
   const [data, setData] = useState<any>(initialData);
   const { t, i18n: { language, exists } } = useTranslation()
+  const [ajv] = useState(createAjv({ strictRequired: false, allErrors: false }));
 
   const i18n: JsonFormsI18nState = {
     locale: language,
@@ -38,6 +42,7 @@ const HomeRegistrationForm = () => {
       cells={materialCells}
       onChange={({errors, data}) => setData(data)}
       i18n={i18n}
+      ajv={ajv}
     />
   );
 };
