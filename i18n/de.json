@@ -14,5 +14,11 @@
   "hasPets.label": "Haustiere vorhanden",
   "petsAllowed.label": "Haustiere erlaubt",
   "accessibilityGiven.label": "Die Wohnung ist barrierefrei erreichbar",
-  "languages.label": "Sprachen"
+  "languages.label": "Sprachen",
+  "german": "Deutsch",
+  "english": "Englisch",
+  "russian": "Russisch",
+  "ukrainian": "Ukrainisch",
+  "french": "Französisch",
+  "spanish": "Spanisch"
 }
