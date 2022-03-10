@@ -1,20 +1,41 @@
+import {ListItemIcon, ListItemText, MenuItem, Select} from '@mui/material'
 import i18next from 'i18next'
 import '../i18n/config'
+import {useTranslation} from "react-i18next";
+import {resources} from "../i18n/config";
+import { countryCodeEmoji  } from 'country-code-emoji';
+
+
+const flagMapping = {
+  en: 'GB',
+  eng: 'GB',
+  ger: 'DE'
+}
+
+const Flag = ({langCode}: {langCode: string}) => {
+  // @ts-ignore
+  const countryCode = (flagMapping[langCode] || langCode).toUpperCase()
+  let emoji = ''
+  try {
+    emoji = countryCodeEmoji(countryCode)
+  } catch (e) {}
+  return <>{emoji}</>
+}
 
 
 export default function LanguageSelection() {
-  const languages =   [{id: 'de', name: 'Deutsch'}, {id: 'en', name: 'Englisch'}]
+  const { t, i18n: {language }} = useTranslation()
+  const languages = Object.keys(resources)
 
   return  (
-    <div>
+    <Select value={language} renderValue={v => <Flag langCode={v} />}>
      { languages.map( lang => (
-         <span key={lang.id}>
-           <button title={lang.name}
-	        onClick={() => i18next.changeLanguage(lang.id)}
-           >{lang.name}</button>
-         </span>
+         <MenuItem dense value={lang}  key={lang} onClick={() => i18next.changeLanguage(lang)} >
+           <ListItemIcon><Flag langCode={lang}/></ListItemIcon>
+           <ListItemText>{t(lang)}</ListItemText>
+         </MenuItem>
        ))
      }
-    </div>
+    </Select>
   )
 }
